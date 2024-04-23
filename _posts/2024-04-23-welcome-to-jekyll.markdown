@@ -51,8 +51,6 @@ Go to project directory then create **Dockerfile** in that directory:
 
 ## Dockerfile Explanation
 
-This Dockerfile is used to create a Docker image for a Python-based application, specifically a Flask app with a SQLite database. Let's break down each instruction:
-
 ### `FROM python:3.10-slim`
 
 - This line specifies the base image to use for building our Docker image. Here, we're using the official lightweight Python image with Python 3.10.
@@ -65,9 +63,6 @@ This Dockerfile is used to create a Docker image for a Python-based application,
 
 - This instruction copies the `requirements.txt` file from the local directory (where the Dockerfile is located) into the `/app` directory in the container. This file typically lists all the Python packages required by the application.
 
-### `RUN pip install -r requirements.txt`
-
-- The `RUN` instruction executes a command in the container. Here, we're using it to install the Python packages listed in `requirements.txt` using `pip install`.
 
 ### `COPY . .`
 
