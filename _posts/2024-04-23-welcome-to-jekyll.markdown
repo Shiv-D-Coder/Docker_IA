@@ -31,28 +31,21 @@ Go to project directory then create **Dockerfile** in that directory:
 
 ### DockerFile
 ```bash
-  # Use official lightweight Python image
   FROM python:3.10-slim
 
-  # Set working directory
   WORKDIR /app
 
-  # Copy local code to the container workdir
   COPY requirements.txt .
 
   # Installing requirements.txt
   RUN pip install  -r requirements.txt
 
-  # copy  the current folder to the container workdir
   COPY . .
 
-  # Make database
   RUN python db_create.py
 
-  # Expose the port the app runs on
   EXPOSE 5050
 
-  # Command to run the application
   CMD ["python", "app.py"]
 ```
 
@@ -110,9 +103,7 @@ now make a container and run it  with this command :
 ```bash
   docker run --name worklist <image_name> shiv37/to-do:v1
 ```
-
 **Or**
-
 You can also run image directly by specifing ports by follwing command but remembere it will create one container by itself by any random name
 
 ```bash
