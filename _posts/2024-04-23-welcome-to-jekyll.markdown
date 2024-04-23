@@ -98,11 +98,13 @@ This Dockerfile sets up a Python environment inside the container, installs the 
 
 ## Step 3: Making Docker image and uploding it to  Docker Hub
 
-To make a Docker image from our Dockerfile, we use the following command in terminal:
+### 3.1 To make a Docker image from our Dockerfile, we use the following command in terminal:
 
 ```bash
   docker build -t shiv37/to-do:v1 .
 ```
+*make sure you are on same Directary as app.py and if you get any error making image you shold try to restart Docker Desktop and make sure you are signed in*
+
 now make a container and run it  with this command :
 
 ```bash
@@ -118,3 +120,24 @@ You can also run image directly by specifing ports by follwing command but remem
 ```
 
 **NOTE: Here shiv37 is my username on Docker hub if you do not have account on docker hub first create it. It is not mandatory to create but it is advisable to create one.Here is link for you [Dockerhub](https://hub.docker.com/)** 
+
+### 3.2 Uploding image to Docker hub
+
+To uplode you image on Dockerhub you shold first login into your account using the below command:
+
+```bash
+  docker login
+```
+It might ask you for your username and password make sure to type it correctly. After successful authentication you can push your image by running
+
+```bash
+  docker push shiv37/to-do:v
+```
+
+**Note that if you don't have an account yet, you will be asked to create one. After creating the account you can proceed with pushing**
+
+I have alrady  pushed my image to DockerHub so you can pull that image directly by running the following command:You can also specify the tag while pushing an imageYou can check if everything is done correctly by running:
+
+```bash
+  docker pull shiv37/to-do:v
+```
