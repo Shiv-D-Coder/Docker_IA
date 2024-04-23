@@ -121,7 +121,8 @@ You can also run image directly by specifing ports by follwing command but remem
 
 **NOTE: Here shiv37 is my username on Docker hub if you do not have account on docker hub first create it. It is not mandatory to create but it is advisable to create one.Here is link for you [Dockerhub](https://hub.docker.com/)** 
 
-### 3.2 Uploding image to Docker hub
+
+## 3.2 Uploding image to Docker hub
 
 To uplode you image on Dockerhub you shold first login into your account using the below command:
 
