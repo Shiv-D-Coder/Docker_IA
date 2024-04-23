@@ -1,29 +1,18 @@
 ---
 layout: post
-title:  "Welcome to Jekyll!"
+title:  "Setting Up Docker_IA Blog with Flask App Integration"
 date:   2024-04-23 10:19:43 +0530
-categories: jekyll update
+categories: [Jekyll, Docker, Flask]
 ---
-You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
 
-Jekyll requires blog post files to be named according to the following format:
+# Setting Up Docker_IA Blog with Flask App Integration
 
-`YEAR-MONTH-DAY-title.MARKUP`
+In this blog post, I'll walk you through the steps I took to set up my Jekyll site for Docker_IA and how I integrated a Flask app from GitHub.
 
-Where `YEAR` is a four-digit number, `MONTH` and `DAY` are both two-digit numbers, and `MARKUP` is the file extension representing the format used in the file. After that, include the necessary front matter. Take a look at the source for this post to get an idea about how it works.
+## Step 1: Setting Up Jekyll
 
-Jekyll also offers powerful support for code snippets:
+### 1.1 Install Jekyll
+First, ensure you have Jekyll installed. If not, you can install it using the following command:
 
-{% highlight ruby %}
-def print_hi(name)
-  puts "Hi, #{name}"
-end
-print_hi('Tom')
-#=> prints 'Hi, Tom' to STDOUT.
-{% endhighlight %}
-
-Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
-
-[jekyll-docs]: https://jekyllrb.com/docs/home
-[jekyll-gh]:   https://github.com/jekyll/jekyll
-[jekyll-talk]: https://talk.jekyllrb.com/
+```bash
+gem install jekyll
