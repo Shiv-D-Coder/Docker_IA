@@ -27,8 +27,8 @@ description: >- # this means to ignore newlines until "baseurl:"
   Unleash the power of Docker - start today!
 baseurl: "Docker_IA" # the subpath of your site, e.g. /blog
 url: "Shiv-D-Coder.github.io" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: jekyllrb
-github_username:  jekyll
+twitter_username: ShivPatel121596
+github_username:  Shiv-D-Coder
 
 # Build settings
 theme: minima
