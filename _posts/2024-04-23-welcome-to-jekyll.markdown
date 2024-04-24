@@ -27,7 +27,7 @@ Make sure Node.js and Docker are installed on your system.
 
 ```shell
 git clone https://github.com/your-username/mern-chat-application.git
-
+```
 ## Step 2: Make Docker file
 
 1. Go to project directory then create **Dockerfile** in that directory(pulic/Dockerfile):
