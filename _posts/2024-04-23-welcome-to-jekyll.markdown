@@ -26,7 +26,7 @@ Make sure Node.js and Docker are installed on your system.
 ## Step 1. Clone the Repository
 
 ```shell
-git clone https://github.com/your-username/mern-chat-application.git
+git clone https://github.com/Shiv-D-Coder/MERN-APP.git
 ```
 ## Step 2: Make Docker file
 
