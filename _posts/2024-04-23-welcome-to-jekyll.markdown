@@ -7,102 +7,162 @@ categories:  jekyll update
  
 # Dockerizing a Three-Tier Application and Pushing Images to Docker Hub
 
-In this blog post, I'll walk you through the detailed process of dockerizing a three-tier application and pushing the Docker images to Docker Hub. We'll be using a simple Todo application built with Flask and SQLite as our example.
+In this blog post, I'll walk you through the detailed process of dockerizing a three-tier application and pushing the Docker images to Docker Hub. We'll be using a simple MERN chat-aplication for this.
  
-## Step 1: Setting Up the Project
- 
-### 1.1 Cloning the Todo App Repository
-First, let's clone the Todo application repository from GitHub:
- 
-```bash
-  git clone https://github.com/pj8912/todo-app.git
-```
+### Overview
+- The `public` directory contains the frontend React application.
+- The `server` directory contains the backend Node.js application.
 
-This is a simple **Todo application** built using *Python* and *SQLite*. The application allows users to add, view, and delete tasks. The data is stored in a SQLite database and the front-end is rendered using the Jinja2 template engine.
+## Installation Guide
 
-## 1.2 Requirements
-- Python 3.x
-- Flask
-- SQLite3
+### Requirements
+- [Node.js](https://nodejs.org/)
+- [React](https://react.dev/)
+- [Docker](https://www.docker.com/)
+
+Make sure Node.js and Docker are installed on your system.
+
+
+## Step 1. Clone the Repository
+
+```shell
+git clone https://github.com/your-username/mern-chat-application.git
 
 ## Step 2: Make Docker file
 
-Go to project directory then create **Dockerfile** in that directory:
+1. Go to project directory then create **Dockerfile** in that directory(pulic/Dockerfile):
 
-### DockerFile
+### DockerFile in public folder for forntend
 ```bash
-  FROM python:3.10-slim
+  # Using node:16 as base image
+  FROM node:16-alpine
 
   WORKDIR /app
 
-  COPY requirements.txt .
+  COPY package*.json ./
 
-  # Installing requirements.txt
-  RUN pip install  -r requirements.txt
+  RUN npm install
 
   COPY . .
 
-  RUN python db_create.py
+  EXPOSE 3000
 
-  EXPOSE 5050
-
-  CMD ["python", "app.py"]
+  CMD ["npm","start"] 
 ```
 
-## Dockerfile Explanation
+2. Now create **Dockerfile** in  directory(server/Dockerfile):
 
-### `FROM python:3.10-slim`
+### DockerFile in public folder for forntend
+```bash
+  # Using node:16 as base image
+  FROM node:16-alpine
 
-- This line specifies the base image to use for building our Docker image. Here, we're using the official lightweight Python image with Python 3.10.
+  WORKDIR /app
+
+  COPY package*.json ./
+
+  RUN npm install
+
+  COPY . .
+
+  EXPOSE 5000
+
+  CMD ["npm","start"]
+```
+
+## Dockerfile Explanation for (public/Dockerfile)
+
+### `FROM node:16-alpine`
+
+- This line specifies the base image to use for building our Docker image. In this case, we are using the Alpine
 
 ### `WORKDIR /app`
 
 - The `WORKDIR` instruction sets the working directory inside the container to `/app`. This is where all subsequent instructions will be executed.
 
-### `COPY requirements.txt .`
+### `COPY package*.json ./`
 
-- This instruction copies the `requirements.txt` file from the local directory (where the Dockerfile is located) into the `/app` directory in the container. This file typically lists all the Python packages required by the application.
+-  This line copies the `package.json` file from your local machine to the container’s `/app` directory. The `.` at the end.
 
+
+### `RUN npm install`
+
+- Runs npm install inside the container to install the required Node.js dependencies for the React app.
 
 ### `COPY . .`
 
-- This line copies all the files and folders from the local directory into the `/app` directory in the container. This includes our Flask application code, such as `app.py`, templates, and static files.
+- Copies all files from your local project directory into the working directory of the container at `/app`.
 
-### `RUN python db_create.py`
+### `EXPOSE 3000`
 
-- This `RUN` command runs the `db_create.py` script inside the container. This script is responsible for creating the SQLite database for our application. It sets up the necessary tables and schema.
+- The `EXPOSE` instruction informs Docker that the container will listen on port `3000` at runtime. This does not actually publish the port, but it serves as a documentation for developers to know which port to expose.
 
-### `EXPOSE 5050`
+### `CMD ["npm", "start"]`
 
-- The `EXPOSE` instruction informs Docker that the container will listen on port `5050` at runtime. This does not actually publish the port, but it serves as a documentation for developers to know which port to expose.
+- Specifies the command to run when the container starts. It runs npm start to start the React application.
 
-### `CMD ["python", "app.py"]`
+## Dockerfile Explanation for (server/Dockerfile)
 
-- Finally, the `CMD` instruction specifies the command to run when the container starts. Here, it runs the Flask application by executing `python app.py`.
+### `FROM node:16-alpine`
 
-### Summary
+- This line specifies the base image to use for building our Docker image. In this case, we are using the Alpine
 
-This Dockerfile sets up a Python environment inside the container, installs the required packages, copies the application code, creates the SQLite database, and specifies the command to start the Flask application. When an image is built from this Dockerfile and a container is run, it will execute the Flask app, making it accessible on port 5050 within the container.
+### `WORKDIR /app`
 
-## Step 3: Making Docker image and uploding it to  Docker Hub
+- The `WORKDIR` instruction sets the working directory inside the container to `/app`. This is where all subsequent instructions will be executed.
 
-### 3.1 To make a Docker image from our Dockerfile, we use the following command in terminal:
+### `COPY package*.json ./`
+
+-  This line copies the `package.json` file from your local machine to the container’s `/app` directory. The `.` at the end.
+
+
+### `RUN npm install`
+
+- Runs npm install inside the container to install the required Node.js dependencies for the React app.
+
+### `COPY . .`
+
+- Copies all files from your local project directory into the working directory of the container at `/app`.
+
+### `EXPOSE 500`
+
+- The `EXPOSE` instruction informs Docker that the container will listen on port `5000` at runtime. 
+
+### `CMD ["npm", "start"]`
+
+- Specifies the command to run when the container starts. It runs npm start to start the React application.
+
+
+## Step 3: Making **docker-compose.yml** file
 
 ```bash
-  docker build -t shiv37/to-do:v1 .
+  version: '3.8'
+  # services  section contains the service configurations
+  services:
+  # build image for frontend
+    front:
+      build: ./public
+      ports:
+        - 3000:3000
+  # build image for backend      
+    api:
+      build: ./server
+      ports:
+       - 5000:5000
 ```
-*make sure you are on same Directary as app.py and if you get any error making image you shold try to restart Docker Desktop and make sure you are signed in*
 
-now make a container and run it  with this command :
+### 3.1 Run docker compose
 
 ```bash
-  docker run --name worklist <image_name> shiv37/to-do:v1
+  docker-compose up -d
 ```
-**Or**
-You can also run image directly by specifing ports by follwing command but remembere it will create one container by itself by any random name
+*make sure you are on same Directary as /app and if you get any error making image you shold try to restart Docker Desktop and make sure you are signed in*
 
+now it will make 2 containers having each one image :
+
+To stop it you can use
 ```bash
-  docker run -it -p 5050:5050 shiv37/to-do:v1
+  docker-compose stop
 ```
 
 **NOTE: Here shiv37 is my username on Docker hub if you do not have account on docker hub first create it. It is not mandatory to create but it is advisable to create one.Here is link for you [Dockerhub](https://hub.docker.com/)** 
@@ -118,7 +178,9 @@ To uplode you image on Dockerhub you shold first login into your account using t
 It might ask you for your username and password make sure to type it correctly. After successful authentication you can push your image by running
 
 ```bash
-  docker push shiv37/to-do:v
+  docker push shiv37/mern-app-front
+
+  docker push shiv37/mern-app-api
 ```
 
 **Note that if you don't have an account yet, you will be asked to create one. After creating the account you can proceed with pushing**
@@ -126,5 +188,7 @@ It might ask you for your username and password make sure to type it correctly. 
 I have alrady  pushed my image to DockerHub so you can pull that image directly by running the following command:You can also specify the tag while pushing an imageYou can check if everything is done correctly by running:
 
 ```bash
-  docker pull shiv37/to-do:v
+  [docker push shiv37/mern-app-front](https://hub.docker.com/repository/docker/shiv37/mern-app-front/general)
+
+  [docker push shiv37/mern-app-api](https://hub.docker.com/repository/docker/shiv37/mern-app-api/general)
 ```
