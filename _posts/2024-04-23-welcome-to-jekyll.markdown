@@ -188,7 +188,9 @@ It might ask you for your username and password make sure to type it correctly. 
 I have alrady  pushed my image to DockerHub so you can pull that image directly by running the following command:You can also specify the tag while pushing an imageYou can check if everything is done correctly by running:
 
 ```bash
-  [docker push shiv37/mern-app-front](https://hub.docker.com/repository/docker/shiv37/mern-app-front/general)
+  docker push shiv37/mern-app-front
 
-  [docker push shiv37/mern-app-api](https://hub.docker.com/repository/docker/shiv37/mern-app-api/general)
+  docker push shiv37/mern-app-api
 ```
+
+### Yoy can visit my  DockerHub profile [here](https://hub.docker.com/u/shiv37).
